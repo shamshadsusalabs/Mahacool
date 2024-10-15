@@ -1,0 +1,31 @@
+<div *ngIf="activeRecords.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-6">
+  <div *ngFor="let record of activeRecords" class="bg-white shadow-lg rounded-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">Checkout Request</h3>
+    <p class="text-gray-600 mb-2"><strong>Email:</strong> {{ record.email }}</p>
+    <p class="text-gray-600 mb-2"><strong>Mobile:</strong> {{ record.mobile }}</p>
+    <p class="text-gray-600 mb-4"><strong>Status:</strong> {{ record.status ? 'Active' : 'Inactive' }}</p>
+
+    <h4 class="text-xl font-semibold text-gray-700 mb-3">Dry Fruit Details:</h4>
+    <ul class="list-disc pl-5 mb-4 space-y-2">
+      <li *ngFor="let detail of record.dryFruitDetails">
+        <p><strong>Dry Fruit Name:</strong> {{ detail.dryFruitName }}</p>
+        <p><strong>City:</strong> {{ detail.cityName }}</p>
+        <p><strong>Warehouse:</strong> {{ detail.warehouseName }}</p>
+        <p><strong>Weight:</strong> {{ detail.weight }} grams</p>
+        <p><strong>Date Added:</strong> {{ detail.dateAdded | date }}</p>
+      </li>
+    </ul>
+
+    <!-- Simplified button for testing -->
+    <button
+      *ngIf="true"
+      (click)="confirmChangeStatus(record.customerId, record.dryFruitDetails)"
+      class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+      Confirm
+    </button>
+  </div>
+</div>
+
+<div *ngIf="activeRecords.length === 0" class="text-center text-gray-600 p-6">
+  <p class="text-xl">No active records found.</p>
+</div>

@@ -1,0 +1,63 @@
+<div class="p-6 bg-gray-100 min-h-screen">
+  <div class="container mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+              <h2 class="text-lg font-semibold mb-2">Total Boxes</h2>
+              <p class="text-4xl font-bold text-blue-600">{{ totalBoxes?.totalCheckInHistoryLength }}</p>
+              <p class="text-gray-500">Total number of boxes in inventory.</p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+              <h2 class="text-lg font-semibold mb-2">Total Racks</h2>
+              <p class="text-4xl font-bold text-green-600">{{ totalRacks?.length }}</p>
+              <p class="text-gray-500">Total number of racks available.</p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+              <h2 class="text-lg font-semibold mb-2">Total Warehouses</h2>
+              <p class="text-4xl font-bold text-purple-600">{{ totalWarehouses?.length }}</p>
+              <p class="text-gray-500">Total number of warehouses in inventory.</p>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+              <h2 class="text-lg font-semibold mb-2">Total City</h2>
+              <p class="text-4xl font-bold text-red-600">{{   totalCity?.length }}</p>
+              <p class="text-gray-500">Total number of containers in inventory.</p>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+              <h2 class="text-lg font-semibold mb-2">Total cleint</h2>
+              <p class="text-4xl font-bold text-yellow-600">{{  totalclient?.length }}</p>
+              <p class="text-gray-500">Total number of Clients.</p>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+              <h2 class="text-lg font-semibold mb-2">Total Manager</h2>
+              <p class="text-4xl font-bold text-teal-600">{{ totalmanager?.length}}</p>
+              <p class="text-gray-500">Total number of Manager.</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+            <h2 class="text-lg font-semibold mb-2">Total Stock</h2>
+            <p class="text-4xl font-bold text-teal-600">{{ totalStock?.grandTotalStock }}</p>
+            <br>
+            <a routerLink="../totalstock" class="text-blue-500 hover:underline">View Total Stock Details</a>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+            <h2 class="text-lg font-semibold mb-2">Total Due</h2>
+            <p class="text-4xl font-bold text-teal-600"><span class="text-2xl mr-24">Total Paid</span>{{  monthlyInvoice?.totals?.totalGrandAmount | currency:'INR':'symbol':'1.0-0'}}</p>
+            <p class="text-4xl font-bold text-teal-600"><span  class="text-2xl mr-24">Remaining</span>{{  monthlyInvoice?.totals?.totalRemainingAmount |currency:'INR':'symbol':'1.0-0'}}</p>
+            <br>
+            <a routerLink="../monthly-view" class="text-blue-500 hover:underline">View Total Due</a>
+          </div>
+
+
+      </div>
+  </div>
+</div>

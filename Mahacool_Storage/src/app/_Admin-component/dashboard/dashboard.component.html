@@ -1,0 +1,127 @@
+<div class="flex h-screen" style="font-family: 'Helvetica', sans-serif; font-size: medium; font-weight: 550;">
+  <!-- Sidebar -->
+  <aside
+    [ngClass]="{'-translate-x-full': !isSidebarOpen, 'translate-x-0': isSidebarOpen}"
+    class="w-64 bg-white border-r border-gray-200 flex flex-col transition-transform transform md:translate-x-0 md:static fixed h-full z-50 md:z-auto md:flex"
+  >
+    <!-- Logo Section -->
+    <div class="flex items-center h-16 mt-4 ml-12">
+      <img src="/logo/companylogo.jpg" alt="Logo" class="h-20 w-auto ml-4" />
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex-1 px-3 pt-5 space-y-3 text-gray-700 overflow-y-auto">
+      <a routerLink="main-content" class="flex items-center text-white bg-blue-500 px-4 py-2 rounded-md transition hover:bg-blue-600">
+        <span class="material-icons mr-3">dashboard</span> Dashboard
+      </a>
+      <a routerLink="client" class="flex items-center px-4 py-2 rounded-md hover:text-blue-600 hover:bg-gray-100">
+        <span class="material-icons mr-3">supervisor_account</span> Client
+      </a>
+      <a routerLink="manager" class="flex items-center px-4 py-2 rounded-md hover:text-blue-600 hover:bg-gray-100">
+        <span class="material-icons mr-3">person</span> Manager
+      </a>
+      <a routerLink="security" class="flex items-center px-4 py-2 rounded-md hover:text-blue-600 hover:bg-gray-100">
+        <span class="material-icons mr-3">security</span> Security
+      </a>
+      <a routerLink="cities" class="flex items-center px-4 py-2 rounded-md hover:text-blue-600 hover:bg-gray-100">
+        <span class="material-icons mr-3">location_city</span> Cities
+      </a>
+      <a routerLink="warehouse" class="flex items-center px-4 py-2 rounded-md hover:text-blue-600 hover:bg-gray-100">
+        <span class="material-icons mr-3">inventory_2</span> Warehouse
+      </a>
+
+      <!-- History Section -->
+      <div class="space-y-1">
+        <a (click)="toggleHistory()" class="flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100 cursor-pointer">
+          <svg class="mr-3 w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a1 1 0 00-1-1H4a1 1 0 00-1 1v4M8 7h8m0 0v12a2 2 0 01-2 2H4a2 2 0 01-2-2V7m10 0h4a2 2 0 012 2v12a2 2 0 01-2 2H12a2 2 0 01-2-2V9a2 2 0 012-2z"></path>
+          </svg>
+          Sack
+          <span class="material-icons ml-auto" *ngIf="!isHistoryOpen">expand_more</span>
+          <span class="material-icons ml-auto" *ngIf="isHistoryOpen">expand_less</span>
+        </a>
+        <div *ngIf="isHistoryOpen" class="ml-8 space-y-1">
+          <a routerLink="bag" class="block text-gray-600 px-4 py-2 rounded-md hover:bg-gray-100">Check In History</a>
+          <a routerLink="allhistory" class="block text-gray-600 px-4 py-2 rounded-md hover:bg-gray-100">Check Out History</a>
+        </div>
+      </div>
+
+      <a routerLink="request-warehouse" class="flex items-center px-4 py-2 rounded-md hover:text-blue-600 hover:bg-gray-100">
+        <span class="material-icons mr-3">visibility</span> Warehouse Request
+      </a>
+
+      <a routerLink="warehouseCheckout-requested" class="flex items-center px-4 py-2 rounded-md hover:text-blue-600 hover:bg-gray-100">
+        <span class="material-icons mr-3">check_circle</span> Warehouse Checkout Requested
+      </a>
+      <div class="space-y-1">
+        <a (click)="toggleInvoive()" class="flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100 cursor-pointer">
+          <span class="material-icons mr-3">receipt</span> Invoices
+          <span class="material-icons ml-auto" *ngIf="!isInvoices">expand_more</span>
+          <span class="material-icons ml-auto" *ngIf="isInvoices">expand_less</span>
+        </a>
+        <div *ngIf="isInvoices" class="ml-8 space-y-1">
+          <a routerLink="AllinvoicesApproved" class="block text-gray-600 px-4 py-2 rounded-md hover:bg-gray-100">Approved Invoices</a>
+          <a routerLink="Allinvoices" class="block text-gray-600 px-4 py-2 rounded-md hover:bg-gray-100">All Invoices</a>
+        </div>
+      </div>
+
+      <a routerLink="monthly_invoice"  class="flex items-center px-4 py-2 rounded-md hover:text-blue-600 hover:bg-gray-100">
+        <span class="material-icons mr-3">attach_money</span> Updated Client Bill
+      </a>
+
+    </nav>
+
+    <!-- Settings Link -->
+    <!-- <a href="#" class="flex items-center px-4 py-4 border-t border-gray-200 hover:text-blue-600">
+      <span class="material-icons mr-3">settings</span> Settings
+    </a> -->
+    <a (click)="logout()" class="flex items-center px-4 py-4 border-t border-gray-200 hover:text-blue-600">
+      <span class="material-icons mr-3">logout</span> Logout
+    </a>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col">
+    <!-- Top Navbar -->
+<!-- Top Navbar -->
+<header class="flex items-center justify-between h-16 bg-white border-b border-gray-200 px-4 sticky top-0" style="font-family: 'Helvetica', sans-serif; font-size: medium; font-weight: 550;">
+  <div class="relative flex-1">
+    <button routerLink="bag" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Check-In
+    </button>
+  </div>
+  <div class="flex items-center space-x-4 ml-4">
+    <div class="text-gray-600 font-bold mr-6 text-2xl">
+      <span class="mr-6">Weight:</span>
+      <span *ngIf="formattedWeight !== ''; else loading" style="color: red; font-weight: bold;">
+        {{ formattedWeight }} KG <!-- Just append KG with space -->
+      </span>
+      <ng-template #loading>Loading...</ng-template>
+    </div>
+
+
+    <!-- Capture Button -->
+    <button (click)="onSubmit()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Capture
+    </button>
+
+    <button class="text-gray-600 hover:text-gray-800">
+      <span class="material-icons" routerLink="push-notification">notifications</span>
+    </button>
+    <div class="relative group">
+      <img src="/logo/Admin.png" alt="Profile" class="h-8 w-8 rounded-full object-cover cursor-pointer" />
+      <!-- <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 "> -->
+
+        <!-- <a  (click)="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a> -->
+      <!-- </div> -->
+    </div>
+  </div>
+</header>
+
+
+    <!-- Router Outlet for Dynamic Content -->
+    <div class="overflow-y-auto p-2 mb-4 bg-gray-50">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+/* Example styles */
+aside {
+  transition: transform 0.3s ease;
+}
+/* Ensure the sidebar takes full height on small screens */
+aside {
+  height: 100vh; /* Full viewport height */
+}
+
+/* Adjust the header layout on small screens */
+@media (max-width: 768px) {
+  header {
+    padding-left: 6rem; /* Ensure space for the sidebar toggle button */
+  }
+}
+/* Custom scrollbar styling */
+nav::-webkit-scrollbar {
+  width: 3px; /* Adjust the scrollbar width */
+}
+
+nav::-webkit-scrollbar-track {
+  background-color: #f0f0f0; /* The background of the scrollbar track */
+}
+
+nav::-webkit-scrollbar-thumb {
+  background-color: #3b82f6; /* The blue-500 color for the scrollbar thumb */
+  border-radius: 4px; /* Optional: make the scrollbar thumb rounded */
+}
+
+nav::-webkit-scrollbar-thumb:hover {
+  background-color: #2563eb; /* Darker blue on hover */
+}
+.top-navbar {
+  width: auto;
+}
+
+/* Styles for mobile screens */
+@media (max-width: 767px) {
+  .top-navbar {
+  height: 13%;
+  }
+
+
+}
+.notification-button {
+  z-index: 10; /* Ensure icon is on top */
+}

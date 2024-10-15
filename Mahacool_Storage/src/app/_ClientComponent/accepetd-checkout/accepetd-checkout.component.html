@@ -1,0 +1,37 @@
+<div *ngIf="deactivatedRecords.length > 0" class="w-full max-w-4xl mx-auto mt-6 space-y-4">
+  <ng-container *ngFor="let record of deactivatedRecords">
+    <ng-container *ngFor="let fruit of record.dryFruitDetails">
+      <div class="bg-white border border-gray-300 rounded-lg shadow-md overflow-hidden">
+        <div class="flex items-start p-4">
+          <div class="flex-shrink-0">
+            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v9.5l4 2.5V14l-4-2.5V3z"></path>
+            </svg>
+          </div>
+          <div class="ml-4 flex-1">
+            <h3 class="text-lg font-semibold text-gray-800 mb-1">Notification</h3>
+            <p class="text-gray-600">
+              <strong>Message:</strong> Your checkout request for
+              <span class="font-semibold text-blue-600">{{ fruit.cityName }}</span>
+              and
+              <span class="font-semibold text-blue-600">{{ fruit.warehouseName }}</span>
+              has been accepted.
+            </p>
+            <div class="mt-4">
+              <h4 class="text-sm font-semibold text-gray-700 mb-1">Details:</h4>
+              <ul class="list-disc pl-5 text-gray-600">
+                <li><strong>Dry Fruit Name:</strong> {{ fruit.dryFruitName }}</li>
+                <li><strong>Weight:</strong> {{ fruit.weight }} grams</li>
+                <li><strong>Date Added:</strong> {{ fruit.dateAdded | date }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+
+<div *ngIf="deactivatedRecords.length === 0" class="text-center text-gray-500 mt-6">
+  <p>No deactivated records found.</p>
+</div>

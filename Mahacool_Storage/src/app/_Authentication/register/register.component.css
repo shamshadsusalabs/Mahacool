@@ -1,0 +1,147 @@
+/* Web3-Inspired Futuristic Design */
+
+/* Container to center the form with animated background */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 25%, #0d0d0d 75%);
+  background-size: 400% 400%;
+  animation: backgroundShift 10s ease infinite; /* Background animation */
+  padding: 20px;
+}
+
+/* Background animation */
+@keyframes backgroundShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Styling for the card with glowing border */
+.customer-info-card {
+  width: 100%;
+  max-width: 650px; /* Increased width */
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.4); /* Dark background with slight transparency */
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px 2px #00ffcc; /* Glowing border */
+  font-family: 'Helvetica', 'sans-serif'; /* Correct font name */
+  color: #ffffff; /* White text */
+  font-weight: 500; /* A standard font-weight (can range from 100 to 900) */
+  font-size: medium; /* Slightly larger font size */
+  transition: transform 0.3s ease;
+}
+
+.customer-info-card:hover {
+  transform: scale(1.03); /* Slight zoom on hover */
+}
+
+/* Header styling with a glow */
+.card-header h2 {
+  font-size: 34px; /* Slightly larger font size */
+  font-weight: 900;
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffcc;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form body styling */
+.form-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Responsive design for small screens */
+@media (max-width: 768px) {
+  .customer-info-card {
+    width: 100%;
+  }
+
+  .form-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Form row styling with glowing inputs */
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label styling with futuristic color */
+.form-row label {
+  font-size: 20px; /* Slightly larger font size */
+  font-weight: 800;
+  color: #00ffcc;
+  margin-bottom: 8px;
+}
+
+/* Input styling with neon glow */
+.form-row input[type="text"],
+.form-row input[type="email"],
+.form-row input[type="password"] {
+  padding: 14px; /* Slightly increased padding */
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.2);
+  font-size: 20px; /* Slightly larger font size */
+  font-family: 'Casablanca', serif; /* Updated font choice */
+  font-weight: 800;
+  color: #ffffff;
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* Ensures inputs use full width */
+}
+
+.form-row input[type="text"]:focus,
+.form-row input[type="email"]:focus,
+.form-row input[type="password"]:focus {
+  border-color: #00ffcc;
+  box-shadow: 0 0 10px #00ffcc; /* Neon glow on focus */
+}
+
+/* 3D Button styling with gradient */
+button[type="submit"] {
+  background: linear-gradient(45deg, #00ffcc, #ff6347, #ff69b4, #ffa500);
+  color: #0a0a0a;
+  padding: 16px 32px; /* Increased padding */
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 22px; /* Slightly larger font size */
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: 'Casablanca', serif; /* Updated font choice */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-size: 400% 400%;
+  animation: gradientShift 5s ease infinite;
+  box-shadow: 0 5px 15px rgba(0, 255, 204, 0.4), 0 10px 20px rgba(255, 255, 255, 0.2); /* 3D shadow */
+}
+
+button[type="submit"]:hover {
+  transform: scale(1.1); /* More pronounced scale on hover */
+  box-shadow: 0 8px 25px rgba(0, 255, 204, 0.6); /* Stronger glow */
+}
+
+/* Gradient animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

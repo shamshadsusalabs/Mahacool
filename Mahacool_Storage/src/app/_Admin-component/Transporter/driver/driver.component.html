@@ -1,0 +1,89 @@
+<div class=" min-h-screen p-6">
+  <div class="container mx-auto">
+    <!-- Add Client Button -->
+    <div class="flex justify-between items-center mb-4">
+      <button  (click)="openModal()" class="bg-blue-500 text-white  px-4 py-2 rounded shadow hover:bg-blue-600">
+        + Add Driver
+      </button>
+      <!-- Search Bar -->
+      <input
+        type="text"
+        placeholder="Search"
+        class="bg-white text-black px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-500"
+        [(ngModel)]="searchTerm"
+      />
+    </div>
+    <app-adddriver *ngIf="isModalOpen" (close)="closeModal()" (driverAdded)="getDriver()"></app-adddriver>
+    <!-- Client Table -->
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+      <table class="min-w-full bg-blue-500 text-white">
+        <thead>
+          <tr>
+            <th class="py-3 px-4 text-left">Sr. No.</th>
+            <th class="py-3 px-4 text-left">Name</th>
+            <th class="py-3 px-4 text-left">Email</th>
+            <th class="py-3 px-4 text-left">Password</th>
+            <th class="py-3 px-4 text-left">Phone</th>
+            <th class="py-3 px-4 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let driver of filtereddrivers; let i = index" class="bg-white text-gray-800">
+            <td class="py-3 px-4">{{ i + 1 }}</td>
+            <td class="py-3 px-4">{{  driver .name }}</td>
+            <td class="py-3 px-4">{{  driver .email }}</td>
+            <td class="py-3 px-4">{{  driver .password }}</td>
+            <td class="py-3 px-4">{{  driver .mobile }}</td>
+            <td class="py-3 px-4">
+              <button (click)="   deleteDriver( driver ._id)"  *ngIf="driver._id" class="bg-red-500 text-white p-2 rounded-full hover:bg-red-700">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm2-11a1 1 0 10-2 0v4a1 1 0 002 0V7zm0 6a1 1 0 10-2 0v1a1 1 0 002 0v-1z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+     <div class="flex justify-between items-center bg-gray-200 p-3 text-gray-800">
+  <!-- Items Per Page Selector -->
+  <div class="flex items-center space-x-2">
+    <span>Items per page: </span>
+    <select [(ngModel)]="itemsPerPage" class="bg-gray-300 px-2 py-1 rounded focus:outline-none">
+      <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
+    </select>
+  </div>
+
+
+
+    <!-- Pagination Controls -->
+    <div class="flex items-center space-x-4">
+      <button
+        (click)="previousPage()"
+        [disabled]="currentPage === 1"
+        class="flex items-center bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 disabled:opacity-50"
+      >
+        <!-- Previous Arrow Icon -->
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+
+      <!-- Page Info -->
+      <span>{{ currentPage }} / {{ totalPages }}</span>
+
+      <button
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+        class="flex items-center bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 disabled:opacity-50"
+      >
+        <!-- Next Arrow Icon -->
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>

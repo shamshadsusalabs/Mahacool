@@ -1,0 +1,280 @@
+<!-- Modal Background -->
+<div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+  <!-- <div class="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto max-h-[90vh] overflow-y-auto custom-scrollbar"> -->
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl mx-auto max-h-[90vh] overflow-y-auto custom-scrollbar">
+
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-semibold">Generate QR Code</h3>
+      <button (click)="onCancel()" class="text-gray-500 hover:text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="customerId" class="block text-sm font-medium text-gray-700">Customer ID</label>
+        <input id="customerId" formControlName="customerId" type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+        <div *ngIf="customerForm.get('customerId')?.invalid && (customerForm.get('customerId')?.dirty || customerForm.get('customerId')?.touched)" class="text-red-600 text-sm mt-1">
+          <div *ngIf="customerForm.get('customerId')?.errors?.['required']">Customer ID is required.</div>
+          <div *ngIf="customerForm.get('customerId')?.errors?.['pattern']">Invalid Customer ID.</div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
+        <input id="date" formControlName="dateCheckIN" type="date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+        <div *ngIf="customerForm.get('dateCheckIN')?.invalid && (customerForm.get('dateCheckIN')?.dirty || customerForm.get('dateCheckIN')?.touched)" class="text-red-600 text-sm mt-1">
+          <div *ngIf="customerForm.get('dateCheckIN')?.errors?.['required']">Date is required.</div>
+        </div>
+      </div>
+
+
+
+
+      <!-- <div id="qrCodeSection" *ngIf="qrCodes.length > 0">
+
+        <div class="flex flex-wrap justify-center gap-8 p-6 bg-gray-50">
+
+          <ng-container *ngFor="let qr of qrCodes">
+
+            <div class="flex flex-row gap-8 mb-6">
+
+
+              <div class="border-4 border-black p-4 rounded-lg shadow-lg bg-white" style="width: 376px; height: auto;">
+                <div class="text-center font-bold text-xl mb-2">Original</div>
+                <div class="text-center mb-4">
+                  <div class="text-4xl font-extrabold text-black tracking-widest uppercase">Mahacool</div>
+                  <div class="text-xl font-bold tracking-wide text-blue-600 uppercase mt-1">Cold Storage</div>
+                </div>
+
+
+                <div class="border-t-2 border-b-2 border-gray-700 py-2 px-2 mb-4">
+                  <div class="flex justify-between items-center">
+                    <div class="text-left text-gray-800">
+                      <p class="text-lg font-semibold"><strong>Bussiness-Name:</strong>{{ qr.bussinessName }}</p>
+                      <p class="text-lg font-semibold"><strong>Date:</strong> {{ qr.dateCheckIN | date: 'mediumDate' }}</p>
+                      <p class="text-lg font-semibold"><strong>Weight:</strong> {{ qr.weight }} kg</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex justify-center my-4">
+                  <img src="logo/invoice.jpg" alt="Company Logo" class="w-24 h-24 border-4 border-black rounded-full shadow-md">
+                </div>
+
+
+                <div class="flex justify-center my-4">
+                  <img [src]="qr.qrData" alt="QR Code" class="border-4 border-black rounded-sm shadow-md" width="120" height="120">
+                </div>
+
+                <div class="border-t border-b border-gray-400 py-2 flex justify-between items-center text-center">
+                  <div class="text-xl font-extrabold text-blue-600" style="font-family: 'Arial', sans-serif;">www.mahacool.com</div>
+                </div>
+
+
+                <div class="text-center mt-4 text-gray-700 text-sm">
+                  <p><strong>GSTN:</strong> 07AHFPA6877M1ZW</p>
+                  <p><strong>Email:</strong> gaurav&#64;anakeen.net</p>
+                  <p><strong>Phone:</strong> +91-9818647283</p>
+                </div>
+              </div>
+
+
+              <div class="border-4 border-black p-4 rounded-lg shadow-lg bg-white" style="width: 376px; height: auto;">
+                <div class="text-center font-bold text-xl mb-2">Copy</div>
+                <div class="text-center mb-4">
+                  <div class="text-4xl font-extrabold text-black tracking-widest uppercase">Mahacool</div>
+                  <div class="text-xl font-bold tracking-wide text-blue-600 uppercase mt-1">Cold Storage</div>
+                </div>
+
+
+                <div class="border-t-2 border-b-2 border-gray-700 py-2 px-2 mb-4">
+                  <div class="flex justify-between items-center">
+                    <div class="text-left text-gray-800">
+                      <p class="text-lg font-semibold"><strong>Bussiness-Name:</strong>{{ qr.bussinessName }}</p>
+                      <p class="text-lg font-semibold"><strong>Date:</strong> {{ qr.dateCheckIN | date: 'mediumDate' }}</p>
+                      <p class="text-lg font-semibold"><strong>Weight:</strong> {{ qr.weight }} kg</p>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="flex justify-center my-4">
+                  <img src="logo/invoice.jpg" alt="Company Logo" class="w-24 h-24 border-4 border-black rounded-full shadow-md">
+                </div>
+
+
+                <div class="flex justify-center my-4">
+                  <img [src]="qr.qrData" alt="QR Code" class="border-4 border-black rounded-sm shadow-md" width="120" height="120">
+                </div>
+
+
+                <div class="border-t border-b border-gray-400 py-2 flex justify-between items-center text-center">
+                  <div class="text-xl font-extrabold text-blue-600" style="font-family: 'Arial', sans-serif;">www.mahacool.com</div>
+                </div>
+
+
+                <div class="text-center mt-4 text-gray-700 text-sm">
+                  <p><strong>GSTN:</strong> 07AHFPA6877M1ZW</p>
+                  <p><strong>Email:</strong> gaurav&#64;anakeen.net</p>
+                  <p><strong>Phone:</strong> +91-9818647283</p>
+                </div>
+              </div>
+
+            </div>
+          </ng-container>
+        </div>
+      </div> -->
+
+
+
+<!-- QR Code Section -->
+<div id="qrCodeSection" *ngIf="qrCodes.length > 0">
+  <!-- Main Container for QR Codes -->
+  <div class="flex flex-col justify-center items-center p-6 bg-gray-50">
+
+    <ng-container *ngFor="let qr of qrCodes">
+      <!-- Each QR Code and Clone in vertical alignment -->
+      <div class="flex flex-col gap-8 mb-6">
+
+        <!-- Original QR Code -->
+        <div class="border-4 border-black p-4 rounded-lg shadow-lg bg-white" style="width: 376px; height: auto">
+          <div class="text-center font-bold text-xl mb-2">Original</div> <!-- Original Label -->
+          <!-- <div class="text-center mb-4">
+
+             <div class="text-center ml-10" style="margin-top: -30px;">
+
+              <svg width="260" height="130">
+                <path id="curve" d="M 0 120 C 0 120, 130 0,260 120"></path>
+                <text class="text">
+                  <textPath class="text_path" href="#curve"  startOffset="50%" text-anchor="middle">Mahacool</textPath>
+                </text>
+
+             </svg></div>
+            <div class="text-xl font-bold tracking-wide text-blue-600 uppercase" style="margin-top: -30px;">Cold Storage</div>
+          </div> -->
+          <div class="text-center mb-4">
+            <div class="text-4xl font-extrabold text-black tracking-widest uppercase">Mahacool</div>
+            <div class="text-xl font-bold tracking-wide text-blue-600 uppercase mt-1">Cold Storage</div>
+          </div>
+
+          <!-- Date and Contact Information -->
+          <div class="border-t-2 border-b-2 border-gray-700 py-2 px-2 mb-4">
+            <div class="flex justify-between items-center">
+              <div class="text-left text-gray-800">
+                <p class="text-base font-semibold"><strong>Client Id:</strong><span class="ml-3">{{ qr.customerId}}</span></p>
+                <p class="text-base font-semibold"><strong>Client Name:</strong><span class="ml-3">{{ qr.name }}</span></p>
+                <p class="text-base font-semibold"><strong>Date:</strong> {{ qr.dateCheckIN | date: 'mediumDate' }}</p>
+                <p class="text-base font-semibold"><strong>DryFruit Name:</strong> {{ qr.dryFruitName }} </p>
+                <p class="text-base font-semibold"><strong>Weight:</strong> {{ qr.weight }} KG</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Logo -->
+          <div class="flex justify-center my-4">
+            <img src="logo/invoice.jpg" alt="Company Logo" class="w-24 h-24 border-4 border-black rounded-full shadow-md">
+          </div>
+
+          <!-- QR Code Section -->
+          <div class="flex justify-center my-4">
+            <img [src]="qr.qrData" alt="QR Code" class="border-4 border-black rounded-sm shadow-md" width="130" height="130">
+          </div>
+
+          <!-- Branding (Company Website and Small Logo) -->
+          <div class="border-t border-b border-gray-400 py-2 flex justify-between items-center text-center">
+            <div class="text-xl font-extrabold text-blue-600" style="font-family: 'Helvetica', sans-serif; margin-left: 50px;">www.mahacool.com</div>
+          </div>
+
+          <!-- GSTN and Address Info -->
+          <div class="text-center mt-4 text-gray-700 text-sm">
+            <p><strong>GSTN:</strong> 07AHFPA6877M1ZW</p>
+            <p><strong>Email:</strong> gaurav&#64;anakeen.net</p>
+            <p><strong>Phone:</strong> +91-9818647283</p>
+          </div>
+        </div>
+
+        <!-- Clone of QR Code (Same Design) -->
+        <div class="border-4 border-black p-4 rounded-lg shadow-lg bg-white mt-6" style="width: 376px; height: auto;">
+          <div class="text-center font-bold text-xl mb-2">Copy</div> <!-- Copy Label -->
+          <!-- <div class="text-center mb-4">
+
+             <div class="text-center ml-10" style="margin-top: -30px;">
+
+              <svg width="260" height="130">
+                <path id="curve" d="M 0 120 C 0 120, 130 0,260 120"></path>
+                <text class="text">
+                  <textPath class="text_path" href="#curve"  startOffset="50%" text-anchor="middle">Mahacool</textPath>
+                </text>
+
+             </svg></div>
+            <div class="text-base font-bold tracking-wide text-blue-600 uppercase" style="margin-top: -30px;">Cold Storage</div>
+          </div> -->
+          <div class="text-center mb-4">
+            <div class="text-4xl font-extrabold text-black tracking-widest uppercase">Mahacool</div>
+            <div class="text-xl font-bold tracking-wide text-blue-600 uppercase mt-1">Cold Storage</div>
+          </div>
+          <!-- Date and Contact Information -->
+          <div class="border-t-2 border-b-2 border-gray-700 py-2 px-2 mb-4">
+            <div class="flex justify-between items-center">
+              <div class="text-left text-gray-800">
+                <p class="text-base font-semibold"><strong>Client Id:</strong><span class="ml-3">{{ qr.customerId}}</span></p>
+                <p class="text-base font-semibold"><strong>Client Name:</strong><span class="ml-3">{{ qr.name }}</span></p>
+                <p class="text-base font-semibold"><strong>Date:</strong> {{ qr.dateCheckIN | date: 'mediumDate' }}</p>
+                <p class="text-base font-semibold"><strong>DryFruit Name:</strong> {{ qr.dryFruitName }} </p>
+                <p class="text-base font-semibold"><strong>Weight:</strong> {{ qr.weight }} KG</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Logo -->
+          <div class="flex justify-center my-4">
+            <img src="logo/invoice.jpg" alt="Company Logo" class="w-24 h-24 border-4 border-black rounded-full shadow-md">
+          </div>
+
+          <!-- QR Code Section -->
+          <div class="flex justify-center my-4">
+            <img [src]="qr.qrData" alt="QR Code" class="border-4 border-black rounded-sm shadow-md" width="130" height="130">
+          </div>
+
+          <!-- Branding (Company Website and Small Logo) -->
+          <div class="border-t border-b border-gray-400 py-2 flex justify-between items-center text-center">
+            <div class="text-xl font-extrabold text-blue-600" style="font-family: 'Helvetica', sans-serif; margin-left: 50px;">www.mahacool.com</div>
+          </div>
+
+          <!-- GSTN and Address Info -->
+          <div class="text-center mt-4 text-gray-700 text-sm">
+            <p><strong>GSTN:</strong> 07AHFPA6877M1ZW</p>
+            <p><strong>Email:</strong> gaurav&#64;anakeen.net</p>
+            <p><strong>Phone:</strong> +91-9818647283</p>
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+
+
+      <div class="flex justify-end space-x-4 mt-4">
+        <button type="submit" [disabled]="isLoading" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          {{ isLoading ? 'Loading...' : 'Generate QR Codes' }}
+        </button>
+        <button type="button" (click)="printQRCode()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+          Print
+        </button>
+        <button (click)="onCancel()" class="text-gray-500 hover:text-gray-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+
+      </div>
+    </form>
+  </div>
+</div>

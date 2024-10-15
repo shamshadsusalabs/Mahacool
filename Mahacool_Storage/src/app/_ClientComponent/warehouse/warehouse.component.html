@@ -1,0 +1,78 @@
+<div class="p-6 h-screen flex flex-col bg-gray-100">
+  <div class="mb-6 flex justify-end">
+    <input
+      type="text"
+      placeholder="Search by warehouse name..."
+      [(ngModel)]="searchTerm"
+      class="w-[70%] px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+
+  <hr class="my-4 border-gray-300" />
+
+  <div class="flex-1 overflow-y-auto">
+    <div *ngIf="displayedCities.length > 0; else noCities">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div
+          *ngFor="let city of displayedCities"
+          class="bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer"
+          (click)="openModal(city)"
+        >
+          <div class="p-6">
+            <h2 class="text-xl font-semibold text-gray-800 text-center">{{ city.name }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noCities>
+      <p class="text-gray-500 text-center">No Warehouse available.</p>
+    </ng-template>
+  </div>
+
+  <!-- Modal -->
+  <div class="fixed inset-0 flex items-center justify-center p-4 bg-gray-900 bg-opacity-50" *ngIf="isModalOpen">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg relative max-h-[90vh] overflow-y-auto">
+      <button (click)="closeModal()" class="absolute top-4 right-4 text-gray-600">&times;</button>
+      <h2 class="text-2xl font-semibold mb-4">Add Details for {{ selectedWarehouse?.name }}</h2>
+
+      <div *ngFor="let item of modalItems; let i = index" class="mb-4">
+        <label for="weight-{{ i }}">Weight (kg) for {{ item.dryFruit }}:</label>
+        <input
+          id="weight-{{ i }}"
+          type="number"
+          [(ngModel)]="item.weight"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm mb-2"
+        />
+
+        <label for="bora-{{ i }}">Sack for {{ item.dryFruit }}:</label>
+        <input
+          id="bora-{{ i }}"
+          type="number"
+          [(ngModel)]="item.bora"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm mb-2"
+        />
+
+        <label for="dryFruit-{{ i }}">Select Dry Fruit:</label>
+        <select
+          id="dryFruit-{{ i }}"
+          [(ngModel)]="item.dryFruit"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm mb-2"
+        >
+          <option *ngFor="let fruit of dryFruits" [value]="fruit.name">{{ fruit.name }}</option>
+        </select>
+
+        <button (click)="removeItem(i)" class="text-red-500">Remove</button>
+      </div>
+
+      <button (click)="addItem()" class="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 mb-4">
+        Add Item
+      </button>
+
+      <button
+        (click)="saveDetails()"
+        class="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+      >
+        Save
+      </button>
+    </div>
+  </div>

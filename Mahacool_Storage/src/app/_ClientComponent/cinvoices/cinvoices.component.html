@@ -1,0 +1,16 @@
+<div class="p-4">
+  <h1 class="text-2xl font-bold mb-4">Invoice List</h1>
+  <div *ngIf="fileUrls.length > 0; else noFiles" class="space-y-4">
+    <div *ngFor="let file of fileUrls" class="bg-white shadow rounded-lg p-4 flex items-center justify-between">
+      <div>
+        <p class="text-lg font-semibold">Invoice generated on: {{ file.date | date:'shortDate' }}</p>
+      </div>
+      <a [href]="file.url" download class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Download
+      </a>
+    </div>
+  </div>
+  <ng-template #noFiles>
+    <p>No invoices available.</p>
+  </ng-template>
+</div>

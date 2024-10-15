@@ -1,0 +1,45 @@
+<div class="flex flex-col items-center justify-center min-h-screen md:flex-row">
+  <div class="flex flex-col items-center justify-center w-full p-8 md:w-1/2 md:px-16 lg:px-20">
+    <img   src="/logo/base-final.jpg" alt="Logo" class="w-full mb-8" />
+  </div>
+
+  <div class="w-full p-8 bg-white md:w-1/2 md:p-12 lg:p-16">
+    <div class="flex justify-center mb-8">
+      <img src="/logo/new.jpg"  alt="Logo" class="w-20 h-20" />
+    </div>
+    <h2 class="mb-6 text-2xl font-bold text-center text-gray-800"  style="font-family: 'Helvetica', sans-serif; font-size: medium; font-weight: 550;">Log in to your account</h2>
+    <p class="mb-8 text-sm text-center text-gray-500"  style="font-family: 'Helvetica', sans-serif; font-size: medium; font-weight: 550;">Welcome back! Please enter your details.</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="mb-4">
+        <label for="emailOrMobile" class="block mb-2 text-sm text-gray-600 font-bold"  style="font-family: 'Helvetica', sans-serif; font-size: medium; font-weight: 550;">Email or Mobile or CustomerID</label>
+        <input type="text" id="emailOrMobile" formControlName="emailOrMobile" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter Mobile or Email or CustomerID" aria-label="Email or Mobile or CustomerID" required>
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="block mb-2 text-sm text-gray-600 font-bold"  style="font-family: 'Helvetica', sans-serif; font-size: medium; font-weight: 550;">Password</label>
+        <input type="password" id="password" formControlName="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="********" aria-label="Password" required>
+      </div>
+
+      <div class="mb-4 flex items-center space-x-4">
+        <div class="flex-1">
+          <label for="role" class="block mb-2 text-sm text-gray-600 font-bold"  style="font-family: 'Helvetica', sans-serif; font-size: medium; font-weight: 550;">Role</label>
+          <select id="role" formControlName="role" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="superadmin" selected>Superadmin</option>
+            <option value="client">Client</option>
+            <option value="manager">Manager</option>
+          </select>
+        </div>
+        <button routerLink="/forgot-password" type="button" class="px-4 py-2 mt-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-white transition duration-200 ease-in-out"  style="font-family: 'Helvetica', sans-serif; font-size: medium; font-weight: 550;">Client Password Reset Request</button>
+      </div>
+
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center"></div>
+      </div>
+
+      <button type="submit" class="w-full px-4 py-2 mb-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold transition duration-200 ease-in-out"  style="font-family: 'Helvetica', sans-serif; font-size: medium; font-weight: 550;">Sign in</button>
+
+      <p class="text-sm text-center text-gray-600 font-bold"  style="font-family: 'Helvetica', sans-serif; font-size: medium; font-weight: 550;">Don't have an account? <a routerLink="register" class="text-blue-500 hover:underline hover:cursor">Sign up</a></p>
+    </form>
+  </div>
+</div>

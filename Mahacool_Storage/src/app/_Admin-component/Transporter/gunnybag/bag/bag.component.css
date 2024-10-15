@@ -1,0 +1,7 @@
+/* Optional: Customize modal styling */
+.modal-container {
+  width: 80%; /* Adjust width as needed */
+  max-width: 1200px; /* Maximum width */
+  height: 30%; /* Adjust height as needed */
+  max-height: 300px; /* Maximum height */
+}

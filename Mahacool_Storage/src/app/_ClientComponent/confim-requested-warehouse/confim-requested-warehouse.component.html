@@ -1,0 +1,25 @@
+<div class="p-6 space-y-6">
+  <ng-container *ngIf="loading; else content">
+    <div class="text-center text-gray-500">
+      <p class="text-lg font-semibold">Loading...</p>
+    </div>
+  </ng-container>
+
+  <ng-template #content>
+    <ng-container *ngIf="warehouseRequests.length > 0; else noData">
+      <div *ngFor="let request of warehouseRequests" class="bg-white shadow-2xl rounded-lg p-6 border border-gray-200">
+        <p class="text-lg text-gray-800">
+          Your request for city <span class="font-bold text-blue-600">{{ request.cityName }}</span> and warehouse <span class="font-bold text-blue-600">{{ request.warehouseName }}</span> has been accepted at a price of <span class="font-bold text-green-600">₹{{ request.rate }}</span>.
+        </p>
+        <p class="text-sm text-gray-600">Total Weight: <span class="font-bold">{{ request.totalweight }} kg</span></p>
+        <p class="text-sm text-gray-600">Bora: <span class="font-bold">{{ request.bora }}</span></p>
+      </div>
+    </ng-container>
+
+    <ng-template #noData>
+      <div class="text-center text-gray-500">
+        <p class="text-lg font-semibold">No warehouse requests available.</p>
+      </div>
+    </ng-template>
+  </ng-template>
+</div>

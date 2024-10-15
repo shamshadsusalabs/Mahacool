@@ -1,0 +1,17 @@
+<!-- main-component.component.html -->
+<div class="p-6 bg-gray-100 min-h-screen">
+  <h1 class="text-4xl font-bold mb-8 text-center text-gray-900">Dry Fruit Dashboard</h1>
+  <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div *ngFor="let fruit of dryFruits" class="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105 border-l-4 border-blue-500">
+      <div class="mb-4">
+        <h2 class="text-2xl font-semibold text-gray-800">{{ fruit.name }}</h2>
+      </div>
+      <div class="flex flex-col space-y-2">
+        <p class="text-gray-600"><strong>City:</strong> {{ fruit.cityName }}</p>
+        <p class="text-gray-600"><strong>Warehouse:</strong> {{ fruit.warehouseName }}</p>
+        <p class="text-gray-600"><strong>Rack:</strong> {{ fruit.rackName }}</p>
+        <p class="text-gray-600"><strong>Weight:</strong> {{ fruit.weight }} kg</p>
+      </div>
+    </div>
+  </div>
+</div>

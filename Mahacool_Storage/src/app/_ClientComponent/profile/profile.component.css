@@ -1,0 +1,4 @@
+/* profile-card.component.css */
+.modal-transition {
+  transition: opacity 0.3s ease;
+}

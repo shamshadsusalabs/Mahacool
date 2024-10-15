@@ -1,0 +1,53 @@
+<div class="flex justify-between items-center mt-10">
+  <!-- Buttons for Modals -->
+  <div class="space-x-2">
+
+  </div>
+
+  <!-- Date Picker and Search Bar -->
+  <div class="flex space-x-4">
+    <input type="date" [(ngModel)]="selectedDate" (change)="filterDataByDate()" class="border border-gray-300 rounded-md p-2" aria-label="Select Date">
+    <input type="text" [(ngModel)]="searchTerm" (input)="searchData()" placeholder="Search by City, Warehouse, Rack or Customer ID" class="border border-gray-300 rounded-md p-2" aria-label="Search">
+  </div>
+
+
+</div>
+
+<!-- Data Table -->
+<div *ngIf=" filteredCustomers.length > 0" class="mt-4">
+  <table class="min-w-full bg-white border border-gray-300">
+    <thead class="bg-blue-600 text-white">
+      <tr>
+        <th class="py-2 px-4 border-b">Customer ID</th>
+        <th class="py-2 px-4 border-b">Date</th>
+        <th class="py-2 px-4 border-b">City Name</th>
+        <th class="py-2 px-4 border-b">Warehouse Name</th>
+        <th class="py-2 px-4 border-b">Rack Name</th>
+        <th class="py-2 px-4 border-b">Type of Sack</th>
+        <th class="py-2 px-4 border-b">Items Name</th>
+        <th class="py-2 px-4 border-b">Weight</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let dryFruit of  paginatedDryFruits">
+        <tr class="bg-gray-50">
+          <td class="py-2 px-4 border-b">{{ dryFruit.customerId }}</td>
+          <td class="py-2 px-4 border-b">{{ dryFruit.dateCheckIN | date:'short' }}</td>
+          <td class="py-2 px-4 border-b">{{ dryFruit.cityName }}</td>
+          <td class="py-2 px-4 border-b">{{ dryFruit.warehouseName }}</td>
+          <td class="py-2 px-4 border-b">{{ dryFruit.rackName }}</td>
+          <td class="py-2 px-4 border-b">{{ dryFruit.typeOfSack }}</td>
+          <td class="py-2 px-4 border-b">{{ dryFruit.name }}</td>
+          <td class="py-2 px-4 border-b">{{ dryFruit.weight }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <div class="flex justify-center mt-4">
+    <button (click)="prevPage()" [disabled]="currentPage === 1" class="bg-blue-600 text-white px-4 py-2 rounded-md">Previous</button>
+    <span class="mx-2">Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="bg-blue-600 text-white px-4 py-2 rounded-md">Next</button>
+  </div>
+</div>

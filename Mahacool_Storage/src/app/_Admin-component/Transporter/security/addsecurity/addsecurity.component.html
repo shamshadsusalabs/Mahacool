@@ -1,0 +1,57 @@
+<div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-semibold text-center mb-4">Add Security</h2>
+    <form [formGroup]="securityForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="name" class="block text-gray-700">Name</label>
+        <input id="name" type="text" formControlName="name"
+          class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Enter client name" />
+        <div *ngIf="securityForm.get('name')?.invalid && securityForm.get('name')?.touched"
+          class="text-red-500 text-sm mt-1">
+          Name is required and should be at least 3 characters long.
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700">Email</label>
+        <input id="email" type="email" formControlName="email"
+          class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Enter client email" />
+        <div *ngIf="securityForm.get('email')?.invalid && securityForm.get('email')?.touched"
+          class="text-red-500 text-sm mt-1">
+          Valid email is required.
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="block text-gray-700">Password</label>
+        <input id="password" type="password" formControlName="password"
+          class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Enter client password" />
+        <div *ngIf="securityForm.get('password')?.invalid && securityForm.get('password')?.touched"
+          class="text-red-500 text-sm mt-1">
+          Password is required and should be at least 6 characters long.
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="phone" class="block text-gray-700">Phone</label>
+        <input id="phone" type="text" formControlName="mobile"
+          class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Enter client phone number" />
+        <div *ngIf="securityForm.get('phone')?.invalid && securityForm.get('phone')?.touched"
+          class="text-red-500 text-sm mt-1">
+          Phone number is required and should be exactly 10 digits long.
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-4">
+        <button type="button" (click)="closeModal()"
+          class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Close</button>
+        <button type="submit" [disabled]="securityForm.invalid"
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

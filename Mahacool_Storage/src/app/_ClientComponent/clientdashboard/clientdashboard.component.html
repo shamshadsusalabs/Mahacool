@@ -1,0 +1,111 @@
+<div class="flex h-screen"  style="font-family: 'Helvetica', sans-serif; font-size: medium; font-weight: 550;"> <!-- Apply the font here -->
+  <!-- Sidebar -->
+  <aside
+    [ngClass]="{'-translate-x-full': !isSidebarOpen, 'translate-x-0': isSidebarOpen}"
+    class="w-64 bg-white border-r border-gray-200 flex flex-col transition-transform transform md:translate-x-0 md:static fixed h-full z-50 md:z-auto md:flex"
+  >
+    <!-- Logo Section -->
+    <div class="flex items-center h-16 px-4 mt-4 ml-12">
+      <img src="/logo/companylogo.jpg" alt="Logo" class="h-20 w-auto" />
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex-1 px-3 pt-5 space-y-3 text-gray-700 overflow-y-auto">
+      <a routerLink="Cmain-content" class="flex items-center text-white bg-blue-500 px-4 py-2 rounded-md transition hover:bg-blue-600">
+        <span class="material-icons mr-3">dashboard</span> Dashboard
+      </a>
+      <a routerLink="client-city" class="flex items-center px-4 py-2 rounded-md hover:text-blue-600 hover:bg-gray-100">
+        <span class="material-icons mr-3">location_city</span> City
+      </a>
+      <a routerLink="Cwarehouse-requested" class="flex items-center px-4 py-2 rounded-md hover:text-blue-600 hover:bg-gray-100">
+        <span class="material-icons mr-3">inventory_2</span> Accepted Warehouse
+      </a>
+
+      <!-- History Section -->
+      <div class="space-y-1">
+        <a (click)="toggleHistory()" class="flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100 cursor-pointer">
+          <span class="material-icons mr-3">history</span> History
+          <span class="material-icons ml-auto" *ngIf="!isHistoryOpen">expand_more</span>
+          <span class="material-icons ml-auto" *ngIf="isHistoryOpen">expand_less</span>
+        </a>
+        <div *ngIf="isHistoryOpen" class="ml-8 space-y-1">
+          <a routerLink="CcheckInhistory" class="block text-gray-600 px-4 py-2 rounded-md hover:bg-gray-100">Check In History</a>
+          <a routerLink="Ccheckouthistory" class="block text-gray-600 px-4 py-2 rounded-md hover:bg-gray-100">Check Out History</a>
+        </div>
+
+        <a (click)="togglecheckout()" class="flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100 cursor-pointer">
+          <span class="material-icons mr-3">inventory_2</span> Checkout-Request
+          <span class="material-icons ml-auto" *ngIf="!ischeckout">expand_more</span>
+          <span class="material-icons ml-auto" *ngIf="ischeckout">expand_less</span>
+        </a>
+        <div *ngIf="ischeckout" class="ml-8 space-y-1">
+          <a routerLink="C-warehouseCheckout-requested" class="block text-gray-600 px-4 py-2 rounded-md hover:bg-gray-100">Request checkout</a>
+          <a routerLink="accepted-checkout-request" class="block text-gray-600 px-4 py-2 rounded-md hover:bg-gray-100">Accepted Requested checkout</a>
+        </div>
+
+        <a routerLink="Cinvoices" class="flex items-center px-4 py-2 rounded-md hover:text-blue-600 hover:bg-gray-100">
+          <span class="material-icons mr-3">receipt</span> Invoices
+        </a>
+        <a routerLink="C-monthly-invoices" class="flex items-center px-4 py-2 rounded-md hover:text-blue-600 hover:bg-gray-100">
+          <span class="material-icons mr-3">receipt</span> Monthly Invoices
+        </a>
+      </div>
+    </nav>
+
+    <!-- Settings Link -->
+    <a routerLink="profile" class="flex items-center px-4 py-4 border-t border-gray-200 hover:text-blue-600">
+      <span class="material-icons mr-3">account_circle</span> Profile
+    </a>
+    <a (click)="logout()" class="flex items-center px-4 py-4 border-t border-gray-200 hover:text-blue-600">
+      <span class="material-icons mr-3">logout</span> Logout
+    </a>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col">
+    <!-- Top Navbar -->
+    <header class="flex items-center justify-between h-16 top-navbar bg-white border-b border-gray-200 px-4 sticky " style="font-family: 'Helvetica', sans-serif; font-size: medium; font-weight: 550;"> <!-- Font class added here -->
+      <div class="relative flex-1">
+        <!-- <input
+          type="text"
+          placeholder="Search product, supplier, order"
+          class="w-full max-w-xs px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+        /> -->
+      </div>
+      <div class="flex items-center space-x-4 ml-4">
+        <button (click)="toggleNotifications()" class="relative text-gray-600 hover:text-gray-800">
+          <span class="material-icons">notifications</span>
+          <span *ngIf="hasNewNotifications" class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center transform translate-x-1/2 translate-y-1/2">
+            {{ notificationCount }}
+          </span>
+        </button>
+
+        <div class="relative group">
+
+          <img
+          [src]="clientDetails?.image ? clientDetails?.image : defaultImage"
+          alt="Profile Image"
+          class="w-12 h-12 rounded-full border border-gray-200"
+        />
+          <!-- <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block">
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+          </div> -->
+        </div>
+      </div>
+    </header>
+    <div class="overflow-y-auto p-2 mt-0 bg-gray-50 font-creepster"> <!-- Font class added here -->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<!-- Hamburger Menu for Mobile -->
+<button
+  aria-label="Toggle sidebar"
+  class="absolute top-3 left-4 md:hidden z-50 bg-blue-600 text-white p-2 rounded-full"
+  (click)="toggleSidebar()"
+>
+  <span class="material-icons">menu</span>
+</button>

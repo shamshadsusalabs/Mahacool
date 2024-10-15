@@ -1,0 +1,134 @@
+<div class="container mx-auto mt-8">
+
+  <section class="py-8 bg-gray-100">
+    <div class="bg-gradient-to-r from-blue-400 to-indigo-500 shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+      <div class="px-8 py-4">
+        <h2 class="text-3xl font-bold text-white mb-4">Customer Information</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex items-center">
+            <i class="fas fa-user text-white mr-2"></i>
+            <p class="text-white"><strong>Name:</strong> {{ customer?.name }}</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-envelope text-white mr-2"></i>
+            <p class="text-white"><strong>Email:</strong> {{ customer?.email }}</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-file-invoice text-white mr-2"></i>
+            <p class="text-white"><strong>GST Number:</strong> {{ customer?.gstNumber }}</p>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-map-marker-alt text-white mr-2"></i>
+            <p class="text-white"><strong>Address:</strong> {{ customer?.address }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Check-In History Section -->
+    <div class="mt-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Check-In History</h2>
+
+      <div class="flex items-center mb-4 justify-center">
+        <label class="mr-2 text-gray-800" for="dateFilter">Filter by Date:</label>
+        <input type="date" id="dateFilter" [(ngModel)]="dateFilter" (change)="applyDateFilter()" class="border rounded-lg p-2"/>
+      </div>
+
+      <div class="bg-white shadow-lg rounded-lg p-4">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2 text-center">Check-In History</h3>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div *ngFor="let checkIn of paginatedCheckInHistory" class="border border-gray-200 rounded-lg p-4">
+            <p class="text-gray-600"><strong>Fruit:</strong> {{ checkIn.dryFruits[0].name }}</p>
+            <p class="text-gray-600"><strong>Date:</strong> {{ checkIn.dryFruits[0].dateCheckIN | date:'short' }}</p>
+            <p class="text-gray-600"><strong>Weight:</strong> {{ checkIn.dryFruits[0].weight }} kg</p>
+            <p class="text-gray-600"><strong>City:</strong> {{ checkIn.dryFruits[0].cityName }}</p>
+            <p class="text-gray-600"><strong>warehouseName:</strong> {{ checkIn.dryFruits[0].warehouseName}}</p>
+          </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="mt-4 flex justify-center">
+          <button *ngFor="let page of [].constructor(totalPages); let i = index"
+                  (click)="changePage(i + 1)"
+                  class="mx-1 px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600"
+                  [class.bg-blue-600]="currentPage === (i + 1)">
+            {{ i + 1 }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Check-Out History Section -->
+      <div class="bg-white shadow-lg rounded-lg p-4 mt-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2 text-center">Check-Out History</h3>
+
+        <!-- Date Filter for Check-Out History -->
+        <div class="flex items-center mb-4 justify-center">
+          <label class="mr-2 text-gray-800" for="checkoutDateFilter">Filter by Date:</label>
+          <input type="date" id="checkoutDateFilter" [(ngModel)]="checkoutDateFilter" (change)="applyCheckoutDateFilter()" class="border rounded-lg p-2"/>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div *ngFor="let checkOut of paginatedCheckOutHistory" class="border border-gray-200 rounded-lg p-4">
+            <p class="text-gray-600"><strong>Fruit:</strong> {{ checkOut.dryFruits[0].name }}</p>
+            <p class="text-gray-600"><strong>Check-Out:</strong> {{ checkOut.dryFruits[0].dateCheckout | date:'short' }}</p>
+            <p class="text-gray-600"><strong>Weight:</strong> {{ checkOut.dryFruits[0].weight }} kg</p>
+            <p class="text-gray-600"><strong>City:</strong> {{ checkOut.dryFruits[0].cityName }}</p>
+            <p class="text-gray-600"><strong>warehouseName:</strong> {{ checkOut.dryFruits[0].warehouseName }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination Controls for Check-Out History -->
+      <div class="mt-4 flex justify-center">
+        <button *ngFor="let page of [].constructor(totalCheckoutPages); let i = index"
+                (click)="changeCheckoutPage(i + 1)"
+                class="mx-1 px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600"
+                [class.bg-blue-600]="currentCheckoutPage === (i + 1)">
+          {{ i + 1 }}
+        </button>
+      </div>
+
+      <!-- Total Weight by Fruit Section -->
+      <div class="mt-8 bg-white shadow-lg rounded-lg p-4">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Total Weight by Fruit</h3>
+        <div class="flex flex-wrap gap-4">
+          <div *ngFor="let fruit of totalWeightByFruit | keyvalue" class="border border-gray-200 rounded-lg p-2 flex-1 min-w-[150px]">
+            <p class="text-gray-600 text-center"><strong>{{ fruit.key }}:</strong> {{ fruit.value }} kg</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 bg-white shadow-lg rounded-lg p-4">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Monthly Totals</h3>
+
+        <div class="flex flex-col gap-4">
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h4 class="text-lg font-semibold text-gray-800">Paid Monthly Totals</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              <div *ngFor="let month of paidMonthlyTotals | keyvalue" class="border border-gray-200 rounded-lg p-4">
+                <p class="text-gray-600"><strong>{{ month.key }}:</strong> {{ month.value | currency:'INR':'symbol':'1.0-0' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h4 class="text-lg font-semibold text-gray-800">Unpaid Monthly Totals</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              <div *ngFor="let month of unpaidMonthlyTotals | keyvalue" class="border border-gray-200 rounded-lg p-4">
+                <p class="text-gray-600"><strong>{{ month.key }}:</strong> {{ month.value | currency:'INR':'symbol':'1.0-0' }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-gray-200 rounded-lg p-4 flex flex-col items-center">
+          <h4 class="text-lg font-semibold text-gray-800 mb-4">Grand Totals</h4>
+          <p class="text-gray-600 text-center"><strong>Total Amount:</strong> {{ grandTotalAmount | currency:'INR':'symbol':'1.0-0' }}</p>
+          <p class="text-gray-600 text-center"><strong>Total Weight:</strong> {{ grandTotalWeight }} kg</p>
+          <p class="text-gray-600 text-center"><strong>Total Paid Amount:</strong> {{ totalPaidAmount | currency:'INR':'symbol':'1.0-0' }}</p>
+          <p class="text-gray-600 text-center"><strong>Unpaid Remaining Amount:</strong> {{ unpaidRemainingAmount | currency:'INR':'symbol':'1.0-0' }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,142 @@
+<div class="h-screen flex items-center justify-center bg-gray-100">
+  <div class="max-w-md w-full bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
+      <h2 class="text-3xl font-semibold text-center">Profile Card</h2>
+    </div>
+    <div class="p-6">
+      <div class="flex items-center space-x-6 mb-6">
+        <div class="flex-shrink-0">
+          <img
+            [src]="clientDetails?.image ? clientDetails?.image : defaultImage"
+            alt="Profile Image"
+            class="w-16 h-16 rounded-full border border-gray-200"
+          />
+        </div>
+
+
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-800 ml-14">{{ clientDetails?.name }}</h3>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <div class="flex justify-between items-center">
+          <p class="text-gray-700 font-medium">Business Name:</p>
+          <p class="text-gray-500">{{ clientDetails?.bussinessName }}</p>
+        </div>
+        <div class="flex justify-between items-center">
+          <p class="text-gray-700 font-medium">Email:</p>
+          <p class="text-gray-500">{{ clientDetails?.email }}</p>
+        </div>
+        <div class="flex justify-between items-center">
+          <p class="text-gray-700 font-medium">Mobile:</p>
+          <p class="text-gray-500">{{ clientDetails?.mobile }}</p>
+        </div>
+        <div class="flex justify-between items-center">
+          <p class="text-gray-700 font-medium">Address:</p>
+          <p class="text-gray-500">{{ clientDetails?.address }}</p>
+        </div>
+        <div class="flex justify-between items-center">
+          <p class="text-gray-700 font-medium">GST Number:</p>
+          <p class="text-gray-500">{{ clientDetails?.gstNumber }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-end p-6">
+      <button (click)="openModal()" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600">Update Information</button>
+    </div>
+
+    <!-- Modal Structure -->
+    <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+      <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
+        <h2 class="text-xl font-semibold mb-6">Update Information</h2>
+        <form (ngSubmit)="onSubmit()" #updateForm="ngForm">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Business Name -->
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Business Name:</label>
+              <input
+                type="text"
+                [(ngModel)]="updatedDetails.bussinessName"
+                name="bussinessName"
+                class="block w-full border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 px-3 py-2 text-gray-800"
+                required
+                placeholder="Enter Business Name"
+              />
+            </div>
+
+            <!-- Email -->
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Email:</label>
+              <input
+                type="email"
+                [(ngModel)]="updatedDetails.email"
+                name="email"
+                class="block w-full border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 px-3 py-2 text-gray-800"
+                required
+                placeholder="Enter Email Address"
+              />
+            </div>
+
+            <!-- Mobile -->
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Mobile:</label>
+              <input
+                type="text"
+                [(ngModel)]="updatedDetails.mobile"
+                name="mobile"
+                class="block w-full border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 px-3 py-2 text-gray-800"
+                required
+                placeholder="Enter Mobile Number"
+              />
+            </div>
+
+            <!-- Address -->
+            <div>
+              <label class="block text-gray-700 font-medium mb-2">Address:</label>
+              <input
+                type="text"
+                [(ngModel)]="updatedDetails.address"
+                name="address"
+                class="block w-full border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 px-3 py-2 text-gray-800"
+                required
+                placeholder="Enter Address"
+              />
+            </div>
+
+            <!-- GST Number and Upload Image -->
+            <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <!-- GST Number -->
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">GST Number:</label>
+                <input
+                  type="text"
+                  [(ngModel)]="updatedDetails.gstNumber"
+                  name="gstNumber"
+                  class="block w-full border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 px-3 py-2 text-gray-800"
+                  required
+                  placeholder="Enter GST Number"
+                />
+              </div>
+
+              <!-- Upload Image -->
+              <div class="col-span-1 md:col-span-2">
+                <label class="block text-gray-700 font-medium mb-2">Upload Image:</label>
+                <input
+                  type="file"
+                  (change)="onImageChange($event)"
+                  class="block w-full text-sm text-gray-500 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-lg file:bg-gray-50 file:text-gray-700 file:hover:bg-gray-100"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-end mt-6">
+            <button type="button" (click)="closeModal()" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-gray-400">Cancel</button>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 ml-2">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+</div>
+</div>

@@ -1,0 +1,35 @@
+
+/* Custom scrollbar styles for Webkit-based browsers (Chrome, Safari) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #3498db; /* Blue color for scrollbar */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #2980b9; /* Darker blue when hovered */
+}
+
+@media print {
+
+  .print-item {
+    page-break-after: always; /* Ensure each item starts on a new page */
+    width: 100%; /* Ensure item takes full width */
+    height: auto; /* Ensure item height adjusts to content */
+  }
+}
+.text{
+  font-size: 3rem;
+  fill: black;
+
+}
+#curve{
+  fill:transparent
+}

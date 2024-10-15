@@ -1,0 +1,165 @@
+<div class="flex flex-col items-center mt-20 min-h-screen">
+  <div class="w-full max-w-6xl flex justify-end">
+    <input
+      type="text"
+      placeholder="Search..."
+      [(ngModel)]="searchTerm"
+      class="border border-gray-300 rounded px-2 py-1 w-64"
+    />
+  </div>
+  <div class="bg-white shadow-lg rounded-lg p-2 w-full max-w-6xl mt-2">
+    <div>
+      <div class="bg-blue-500 text-white text-lg font-semibold p-2 rounded-t-lg">
+        <div class="grid grid-cols-6 gap-4">
+          <div>Sr. No.</div>
+          <div>Name</div>
+          <!-- <div>Shelf</div> -->
+          <div>Status</div>
+          <!-- <div>Add Story</div> -->
+          <div class="text-right">Actions</div>
+        </div>
+      </div>
+      <div class="p-2">
+        <div
+          *ngFor="let city of paginatedItems; let i = index"
+          class="grid grid-cols-6 gap-4 p-2 border-b"
+        >
+          <div>{{ i + 1 }}</div>
+          <div>{{ city.name }}</div>
+          <!-- <div>{{ city.story?.length }}</div> -->
+          <div>
+            <select
+              class="border border-gray-300 rounded px-2 py-1 focus:outline-none"
+              [(ngModel)]="city.active"
+              (ngModelChange)="openConfirmModal(city, $event)"
+            >
+              <option [ngValue]="true">Active</option>
+              <option [ngValue]="false">Inactive</option>
+            </select>
+          </div>
+          <!-- <div class="flex space-x-2">
+            <button class="bg-purple-500 text-white rounded-full p-2" (click)="openAddRackModal(city)">
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l4 4a1 1 0 01.293.707V15a1 1 0 01-1 1H5a1 1 0 01-1-1V8a1 1 0 01.293-.707l4-4A1 1 0 0110 3zm-1 4.414V12a1 1 0 001 1h3.586l-2.293-2.293a1 1 0 010-1.414L14.586 4H12a1 1 0 00-1 1v2.586L7.707 7.707a1 1 0 01-1.414 0L4 5.414V7a1 1 0 001 1h2.586l2.293-2.293A1 1 0 0110 7.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div> -->
+          <div class="flex justify-end space-x-2">
+            <button class="bg-purple-500 text-white rounded-full p-2" (click)="openEditModal(city)">
+              <!-- Heroicon for Edit (Pencil) -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M17.414 2.586a2 2 0 010 2.828l-9.586 9.586a1 1 0 01-.707.293H4a1 1 0 01-1-1v-3.121a1 1 0 01.293-.707l9.586-9.586a2 2 0 012.828 0zm-2.828 4L6 15.172V14h-1v-1H4.828l8.586-8.586 1.172 1.172zm-1.172-2.828L14 4.414 15.414 3 16 3.586 14.414 5 13 3.586z" />
+              </svg>
+            </button>
+
+            <!-- <button class="bg-purple-500 text-white rounded-full p-2" (click)="city._id ? redirectToWarehouse(city._id) : null">
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M13 7h5a1 1 0 011 1v5a1 1 0 01-1 1h-5a1 1 0 110-2h3.586l-9.293 9.293a1 1 0 01-1.414-1.414L15.586 10H12a1 1 0 010-2h1z" clip-rule="evenodd" />
+                <path fill-rule="evenodd" d="M8 3a1 1 0 01.293.707v.586l-7.293 7.293A1 1 0 01.293 11.293L7.586 4H7A1 1 0 017 2h5a1 1 0 011 1v5a1 1 0 01-2 0V4.414l-7.293 7.293A1 1 0 01.293 10.293L7.586 3H8z" clip-rule="evenodd" />
+              </svg>
+            </button> -->
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-200 text-gray-700 text-sm p-2 rounded-b-lg flex justify-between items-center">
+        <span>Items per page:
+          <select [(ngModel)]="itemsPerPage" class="border border-gray-300 rounded px-2 py-1">
+            <option *ngFor="let option of itemsPerPageOptions" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+        </span>
+        <div class="flex items-center space-x-2">
+          <button (click)="prevPage()" [disabled]="currentPage === 1" class="bg-blue-500 text-white p-2 rounded-lg">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+          </button>
+          <span>{{ currentPage }} of {{ totalPages }}</span>
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="bg-blue-500 text-white p-2 rounded-lg">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Modal -->
+<div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white p-4 rounded-lg shadow-lg">
+    <h2 class="text-lg font-semibold mb-4">Confirm Action</h2>
+    <input
+      type="text"
+      placeholder="Type 'CONFIRM' to proceed"
+      [(ngModel)]="confirmInput"
+      class="border border-gray-300 rounded px-2 py-1 w-full mb-4"
+    />
+    <div class="flex justify-end">
+      <button (click)="confirmAction()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+        Confirm
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Existing code for the main content -->
+
+<!-- Edit City Modal -->
+<div *ngIf="isEditModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white p-4 rounded-lg shadow-lg">
+    <h2 class="text-lg font-semibold mb-4">Edit Warehouse</h2>
+    <input
+      type="text"
+      [(ngModel)]="updatedWarehouseName"
+      class="border border-gray-300 rounded px-2 py-1 w-full mb-4"
+    />
+    <div class="flex justify-end">
+      <button (click)=" updateRack()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+        Update
+      </button>
+      <button (click)="closeEditModal()" class="bg-gray-500 text-white px-4 py-2 rounded-lg ml-2">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- <div *ngIf="isAddRackModalOpen " class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white p-4 rounded-lg shadow-lg">
+    <h2 class="text-lg font-semibold mb-4">Add Rack</h2>
+    <input
+      type="text"
+      placeholder="Story Name"
+      [(ngModel)]="newStorykName"
+      class="border border-gray-300 rounded px-2 py-1 w-full mb-4"
+    />
+    <input
+      type="number"
+      placeholder="Box"
+      [(ngModel)]="box"
+      class="border border-gray-300 rounded px-2 py-1 w-full mb-4"
+    />
+    <input
+      type="number"
+      placeholder="Box Capacity"
+      [(ngModel)]="cap"
+      class="border border-gray-300 rounded px-2 py-1 w-full mb-4"
+    />
+    <div class="flex justify-end">
+      <button (click)="addrack()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+        Add
+      </button>
+      <button (click)="closeAddRackModal()" class="bg-gray-500 text-white px-4 py-2 rounded-lg ml-2">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div> -->

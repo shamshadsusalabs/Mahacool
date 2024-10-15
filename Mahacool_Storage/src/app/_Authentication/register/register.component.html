@@ -1,0 +1,84 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
+  <div class="form-container">
+    <div class="customer-info-card">
+      <div class="card-header">
+        <h2>Customer Information</h2>
+      </div>
+      <hr>
+      <br>
+      <div class="form-body">
+        <!-- Existing fields -->
+        <div class="form-row">
+          <label for="name">
+            <span class="icon">👤</span> Name
+          </label>
+          <div class="divider"></div>
+          <input type="text" id="name" formControlName="name" placeholder="Enter your name">
+        </div>
+
+        <div class="form-row">
+          <label for="businessAddress">
+            <span class="icon">🏢</span> Business Name
+          </label>
+          <div class="divider"></div>
+          <input type="text" id="businessAddress" formControlName="bussinessName" placeholder="Enter your business address">
+        </div>
+
+        <div class="form-row">
+          <label for="buntacsAddress">
+            <span class="icon">🏡</span> Email ID (Optional)
+          </label>
+          <div class="divider"></div>
+          <input type="text" id="buntacsAddress" formControlName="email" placeholder="Enter your buntacs address">
+        </div>
+
+        <!-- New Password field -->
+        <div class="form-row">
+          <label for="password">
+            <span class="icon">🔒</span> Password
+          </label>
+          <div class="divider"></div>
+          <input type="password" id="password" formControlName="password" placeholder="Enter your password">
+        </div>
+
+        <div class="form-row">
+          <label for="contactNumber">
+            <span class="icon">📞</span> Contact Number
+          </label>
+          <div class="divider"></div>
+          <input type="text" id="contactNumber" formControlName="mobile" placeholder="Enter your contact number">
+        </div>
+
+        <div class="form-row">
+          <label for="gstNumber">
+            <span class="icon">📧</span> GST Number
+          </label>
+          <div class="divider"></div>
+          <input type="text" id="gstNumber" formControlName="gstNumber" placeholder="Enter your GST Number">
+        </div>
+
+        <div class="form-row">
+          <label for="emailNumber">
+            <span class="icon">✉️</span> Address
+          </label>
+          <div class="divider"></div>
+          <input type="text" id="emailNumber" formControlName="address" placeholder="Enter your address">
+        </div>
+
+        <button type="submit" style="
+          background-color: #f3f4f6; /* Gray 100 */
+          color: #1F2937; /* Dark text color for contrast */
+          padding: 12px 24px; /* Increased padding */
+          border: none;
+          border-radius: 6px; /* Slightly more rounded corners */
+          cursor: pointer;
+          box-shadow: 5px 5px 4px #bcbcbc, -5px -5px 4px #ffffff;
+          font-size: 18px;
+          font-weight: 700; /* Adjusted font size */
+        ">
+          Register
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

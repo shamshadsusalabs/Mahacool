@@ -1,0 +1,133 @@
+<div class="container mx-auto p-4">
+  <!-- Search Bar -->
+  <div class="mb-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">Invoice List</h1>
+    <input
+      type="text"
+      placeholder="Search by Customer ID"
+      class="px-4 py-2 border border-gray-300 rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+      [(ngModel)]="searchCustomerId"
+      (input)="searchInvoices()"
+    />
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full table-auto bg-white rounded-lg shadow-lg">
+      <thead>
+        <tr class="bg-gray-100 text-left">
+          <th class="px-4 py-2 border">Customer ID</th>
+          <th class="px-4 py-2 border">Dry Fruits</th>
+          <th class="px-4 py-2 border">Check-in Dates</th>
+          <th class="px-4 py-2 border">Check-out Dates</th>
+          <th class="px-4 py-2 border">Weight (kg)</th>
+          <th class="px-4 py-2 border">Stored days</th>
+          <th class="px-4 py-2 border">Total Payable (₹)</th>
+          <th class="px-4 py-2 border">Gst (₹)</th>
+          <th class="px-4 py-2 border">Total Payable  With Gst(₹)</th>
+          <th class="px-4 py-2 border">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let customer of paginatedInvoices; let i = index">
+          <tr>
+            <!-- Customer ID -->
+            <td class="px-4 py-2 border">{{ customer.customerId }}</td>
+
+            <!-- Dry Fruits List -->
+            <td class="px-4 py-2 border">
+              <ul>
+                <li *ngFor="let invoice of customer.invoices" class="border-b border-gray-300">
+                  {{ invoice.dryFruitName }}
+                </li>
+              </ul>
+            </td>
+
+            <!-- Check-in Dates -->
+            <td class="px-4 py-2 border">
+              <ul>
+                <li *ngFor="let invoice of customer.invoices" class="border-b border-gray-300">
+                  {{ invoice.dateCheckIN | date }}
+                </li>
+              </ul>
+            </td>
+
+            <!-- Check-out Dates -->
+            <td class="px-4 py-2 border">
+              <ul>
+                <li *ngFor="let invoice of customer.invoices" class="border-b border-gray-300">
+                  {{ invoice.dateCheckout | date }}
+                </li>
+              </ul>
+            </td>
+
+            <!-- Individual Weights -->
+            <td class="px-4 py-2 border">
+              <ul>
+                <li *ngFor="let invoice of customer.invoices" class="border-b border-gray-300">
+                  {{ invoice.weight }} kg
+                </li>
+              </ul>
+            </td>
+
+            <!-- Stored Hours -->
+            <td class="px-4 py-2 border">
+              <ul>
+                <li *ngFor="let invoice of customer.invoices" class="border-b border-gray-300">
+                  {{ invoice.storedDays }}
+                </li>
+              </ul>
+            </td>
+
+
+
+            <!-- Total Amount after GST -->
+           <!-- Total Payable Amount before GST -->
+<td class="px-4 py-2 border font-bold">
+  {{ getTotalPayableAmount(customer.invoices) | currency:'INR' }}
+</td>
+
+<!-- GST Amount -->
+<td class="px-4 py-2 border font-bold">
+  {{ calculateGST(getTotalPayableAmount(customer.invoices)) | currency:'INR' }}
+</td>
+
+<!-- Total Amount after GST -->
+<td class="px-4 py-2 border font-bold">
+  {{ getTotalWithGST(getTotalPayableAmount(customer.invoices)) | currency:'INR' }}
+</td>
+
+
+            <!-- Action Button -->
+            <td class="px-4 py-2 border">
+              <button
+                class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600"
+                (click)="printInvoice(customer)"
+              >
+                Generate Invoice And Approved
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+
+    </table>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="mt-4 flex justify-between items-center">
+    <div class="text-sm">
+      Page {{ currentPage }} of {{ totalPages }}
+    </div>
+    <div class="space-x-2">
+      <button class="px-3 py-1 border rounded" (click)="prevPage()" [disabled]="currentPage === 1">
+        Previous
+      </button>
+      <button class="px-3 py-1 border rounded" (click)="nextPage()" [disabled]="currentPage === totalPages">
+        Next
+      </button>
+    </div>
+  </div>
+</div>
+
+

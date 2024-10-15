@@ -1,0 +1,13 @@
+<div *ngIf="loading" class="flex justify-center items-center h-screen bg-gray-200">
+  <p class="text-xl font-semibold">Loading...</p>
+</div>
+
+<div *ngIf="!loading" class="min-h-screen bg-gray-200 p-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div *ngFor="let weight of totalWeights" class="bg-white rounded-lg shadow-lg p-4 flex flex-col">
+      <h3 class="text-lg font-semibold text-blue-500">Customer ID: {{ weight.customerId }}</h3>
+      <p class="mt-2 text-gray-700">Total Weight: <span class="font-bold text-green-500">{{ weight.totalWeight }} kg</span></p>
+
+    </div>
+  </div>
+</div>
